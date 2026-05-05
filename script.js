@@ -404,8 +404,13 @@ function updateTranslationDisplay() {
 
 if (closeFontDialog) {
     closeFontDialog.addEventListener('click', () => {
+        const scrollY = document.body.style.top;
         fontSizeDialog.close();
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
     });
 }
 
@@ -428,8 +433,13 @@ if (fontSizeDialog) {
             e.clientY < rect.top ||
             e.clientY > rect.bottom
         ) {
+            const scrollY = document.body.style.top;
             fontSizeDialog.close();
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.top = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
 });
 }
@@ -522,6 +532,9 @@ if (settingsBtn) {
         if (fontSizeDialog) {
             fontSizeDialog.showModal();
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.top = `-${window.scrollY}px`;
         }
     });
 }
