@@ -32,6 +32,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     font-family: var(--font-family);
     background-color: var(--bg-color);
@@ -189,9 +193,10 @@ header {
     border-radius: 16px;
     max-width: 800px;
     width: 100%;
-    max-height: 90vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     transform: scale(0.9);
     transition: transform 0.3s ease;
@@ -228,6 +233,7 @@ header {
     flex: 1;
     overflow: hidden;
     position: relative;
+    height: 100%;
     min-height: 0;
 }
 
@@ -236,46 +242,32 @@ header {
     transition: transform 0.3s ease;
     height: 100%;
     min-height: 100%;
+    touch-action: pan-y;
 }
 
 .carousel-card {
     min-width: 100%;
     height: 100%;
-    padding: 0;
+    min-height: 0;
+    padding: 32px 24px;
     display: block;
     text-align: center;
     box-sizing: border-box;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
 }
 
-/* Show scrollbar */
-.carousel-card::-webkit-scrollbar {
-    width: 8px;
-}
+/* Removed custom scrollbar styles to ensure native scrollbars are visible */
 
-.carousel-card::-webkit-scrollbar-track {
-    background: var(--bg-color);
-}
-
-.carousel-card::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-.carousel-card::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
 
 .carousel-card-content {
-    padding: 32px 24px;
     max-width: 600px;
     margin: 0 auto;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 24px;
 }
 

@@ -382,17 +382,24 @@ function applySideBySideLayout() {
 
 function updateTranslationDisplay() {
     console.log('updateTranslationDisplay called:', { translationEnabled, translationMode });
-    console.log('body dataset:', document.body.dataset.translationMode);
     
-    // Clear existing content first
     const content = document.getElementById('content');
     if (content) {
+        // Καταγραφή του τρέχοντος ύψους για την αποφυγή layout shift
+        const currentHeight = content.offsetHeight;
+        content.style.minHeight = `${currentHeight}px`;
+        
+        // Καθαρισμός και επαναφόρτωση
         content.innerHTML = '';
+        
+        // Η loadContent είναι async, οπότε θα καθαρίσουμε το minHeight όταν τελειώσει
+        loadContent().then(() => {
+            // Μικρή καθυστέρηση για να προλάβει το rendering
+            setTimeout(() => {
+                content.style.minHeight = '';
+            }, 100);
+        });
     }
-    
-    // Reload content to apply changes
-    console.log('Reloading content');
-    loadContent();
 }
 
 if (closeFontDialog) {
