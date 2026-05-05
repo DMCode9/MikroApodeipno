@@ -32,8 +32,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html {
-    scrollbar-gutter: stable;
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -257,6 +260,7 @@ header {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
+    overscroll-behavior-y: contain;
 }
 
 /* Removed custom scrollbar styles to ensure native scrollbars are visible */
@@ -657,10 +661,10 @@ header h1 {
 
 main {
     background-color: transparent;
-    padding: 24px 16px 100px;
-    margin-top: 20px;
+    padding: 44px 16px 100px; /* Increased top padding to replace margin */
     border-radius: 0;
     box-shadow: none;
+    overflow-x: hidden;
 }
 
 .paragraph {
@@ -1015,8 +1019,16 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
     }
     
     body[data-translation-mode="sidebyside"] .paragraph:has(.original-text) p {
-        font-size: calc(var(--font-size, 18px) * 0.95);
+        font-size: calc(var(--font-size, 18px) * 0.85);
+        word-break: break-word;
+        hyphens: auto;
     }
+}
+
+body[data-translation-mode="sidebyside"] .paragraph .original-text,
+body[data-translation-mode="sidebyside"] .paragraph .translation-text {
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 .slider-container {
