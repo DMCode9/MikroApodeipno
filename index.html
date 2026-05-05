@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Μικρό Απόδειπνο</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn btn-menu" aria-label="Μενού">
+                        <span class="icon">☰</span>
+                    </button>
+                    <h1>Μικρό Απόδειπνο</h1>
+                </div>
+                <div class="controls">
+                    <div class="theme-switch" id="themeSwitch" aria-label="Εναλλαγή θέματος">
+                        <div class="theme-switch-track">
+                            <div class="theme-switch-thumb">
+                                <span class="theme-icon">🌙</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <div class="container">
+        <main id="content">
+            <!-- Το περιεχόμενο θα φορτωθεί από το markdown -->
+        </main>
+
+        <!-- Dialog για ρυθμίσεις -->
+        <dialog id="fontSizeDialog" class="dialog">
+            <div class="dialog-content">
+                <h2>Ρυθμίσεις</h2>
+                
+                <div class="setting-group">
+                    <h3 class="setting-title">Μέγεθος Γραμματοσειράς</h3>
+                    <div class="slider-container">
+                        <label for="fontSizeSlider">
+                            <span id="fontSizeValue">18</span>px
+                        </label>
+                        <input type="range" id="fontSizeSlider" min="14" max="32" value="18" step="1">
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3 class="setting-title">Θέμα Εμφάνισης</h3>
+                    <div class="theme-options">
+                        <button class="theme-option" data-theme="light">
+                            <span class="theme-preview light-preview"></span>
+                            <span class="theme-name">Ανοιχτό</span>
+                        </button>
+                        <button class="theme-option" data-theme="dark">
+                            <span class="theme-preview dark-preview"></span>
+                            <span class="theme-name">Σκούρο</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3 class="setting-title">Γραμματοσειρά</h3>
+                    <div class="font-options">
+                        <button class="font-option" data-font="georgia">
+                            <span style="font-family: Georgia, serif;">Αα</span>
+                            <span class="font-name">Georgia</span>
+                        </button>
+                        <button class="font-option" data-font="palatino">
+                            <span style="font-family: 'Palatino Linotype', Palatino, serif;">Αα</span>
+                            <span class="font-name">Palatino</span>
+                        </button>
+                        <button class="font-option" data-font="garamond">
+                            <span style="font-family: Garamond, serif;">Αα</span>
+                            <span class="font-name">Garamond</span>
+                        </button>
+                        <button class="font-option" data-font="times">
+                            <span style="font-family: 'Times New Roman', Times, serif;">Αα</span>
+                            <span class="font-name">Times</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3 class="setting-title">Απόδοση στα νέα ελληνικά</h3>
+                            <p class="setting-description">Εμφάνιση μετάφρασης</p>
+                        </div>
+                        <div class="toggle-switch" id="translationToggle">
+                            <div class="toggle-track">
+                                <div class="toggle-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="translation-mode-options" id="translationModeOptions" style="display: none;">
+                        <h4 class="setting-subtitle">Τρόπος Εμφάνισης</h4>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="translationMode" value="popup" checked>
+                                <span class="radio-label">
+                                    <span class="radio-title">Αναδυόμενο</span>
+                                    <span class="radio-description">Εμφάνιση σε αναδυόμενο πλαίσιο με κλικ</span>
+                                </span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="translationMode" value="sidebyside">
+                                <span class="radio-label">
+                                    <span class="radio-title">Παράθεση</span>
+                                    <span class="radio-description">Δύο στήλες: πρωτότυπο και μετάφραση</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="closeFontDialog" class="btn btn-primary">Κλείσιμο</button>
+            </div>
+        </dialog>
+
+        <!-- Bottom sheet για μετάφραση -->
+        <div id="translationSheet" class="bottom-sheet">
+            <div class="sheet-content">
+                <p id="translationText"></p>
+            </div>
+        </div>
+        <div id="sheetOverlay" class="sheet-overlay"></div>
+    </div>
+
+    <!-- Scroll to Top FAB -->
+    <button id="scrollToTopBtn" class="scroll-to-top-fab" aria-label="Μετάβαση στην κορυφή">
+        <span class="icon">↑</span>
+    </button>
+
+    <!-- Theotokos Overlay -->
+    <div id="theotokosOverlay" class="theotokos-overlay">
+        <div class="theotokos-content">
+            <div class="theotokos-header">
+                <h2>Χαιρετισμοί της Υπεραγίας Θεοτόκου</h2>
+                <button id="closeTheotokos" class="btn" aria-label="Κλείσιμο">
+                    <span class="icon">✕</span>
+                </button>
+            </div>
+            <div class="theotokos-body">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Cards will be added by JavaScript -->
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button id="prevCard" class="carousel-btn" aria-label="Προηγούμενο">
+                        <span class="icon">‹</span>
+                    </button>
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <!-- Indicators will be added by JavaScript -->
+                    </div>
+                    <button id="nextCard" class="carousel-btn" aria-label="Επόμενο">
+                        <span class="icon">›</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile/Desktop Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <h3>Μενού</h3>
+                <button id="closeMenu" class="btn" aria-label="Κλείσιμο">
+                    <span class="icon">✕</span>
+                </button>
+            </div>
+            <div class="mobile-menu-items">
+                <button id="settingsBtn" class="mobile-menu-item settings-btn">
+                    <span class="icon">⚙️</span>
+                    <span>Ρυθμίσεις</span>
+                </button>
+                
+                <div class="menu-section">
+                    <div class="bookmark-list">
+                        <a href="#psalm-50" class="bookmark-item-menu">Ψαλμός Ν' (50)</a>
+                        <a href="#psalm-69" class="bookmark-item-menu">Ψαλμός ΞΘ' (69)</a>
+                        <a href="#psalm-142" class="bookmark-item-menu">Ψαλμός ΡΜΒ' (142)</a>
+                        <a href="#doxology" class="bookmark-item-menu">Mικρά Δοξολογία</a>
+                        <a href="#creed" class="bookmark-item-menu">Τὸ Σύμβολον τῆς Πίστεως</a>
+                        <a href="#theotokos-button" class="bookmark-item-menu">Χαιρετισμοί της Υπεραγίας Θεοτόκου</a>
+                        <a href="#axion-estin" class="bookmark-item-menu">Ἄξιόν Ἐστιν</a>
+                        <a href="#troparia" class="bookmark-item-menu">Tροπάρια</a>
+                        <a href="#prayer-hours" class="bookmark-item-menu">Εὐχὴ τῶν Ὡρῶν</a>
+                        <a href="#aspile" class="bookmark-item-menu">Ἅσπιλε</a>
+                        <a href="#kai-dos" class="bookmark-item-menu">Καὶ δὸς ἡμῖν</a>
+                        <a href="#guardian-angel" class="bookmark-item-menu">Εὐχὴ εἰς τὸν φύλακα Ἄγγελον</a>
+                        <a href="#hypermacho" class="bookmark-item-menu">Τῇ Ὑπερμάχῳ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
