@@ -1010,11 +1010,17 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
 @media (max-width: 768px) {
     body[data-translation-mode="sidebyside"] .paragraph:has(.original-text) {
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 8px;
+    }
+    
+    body[data-translation-mode="sidebyside"] .paragraph .original-text,
+    body[data-translation-mode="sidebyside"] .paragraph .translation-text {
+        min-width: 0;
+        overflow: hidden;
     }
     
     body[data-translation-mode="sidebyside"] .paragraph .translation-text {
-        padding-left: 12px;
+        padding-left: 8px;
         border-left: 2px solid var(--border-color);
     }
     
@@ -1022,6 +1028,7 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
         font-size: calc(var(--font-size, 18px) * 0.85);
         word-break: break-word;
         hyphens: auto;
+        overflow-wrap: break-word;
     }
 }
 

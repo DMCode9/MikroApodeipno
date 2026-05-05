@@ -405,6 +405,7 @@ function updateTranslationDisplay() {
 if (closeFontDialog) {
     closeFontDialog.addEventListener('click', () => {
         fontSizeDialog.close();
+        document.body.style.overflow = '';
     });
 }
 
@@ -428,8 +429,9 @@ if (fontSizeDialog) {
             e.clientY > rect.bottom
         ) {
             fontSizeDialog.close();
-        }
-    });
+            document.body.style.overflow = '';
+    }
+});
 }
 
 // Bottom sheet για μετάφραση
@@ -519,6 +521,7 @@ if (settingsBtn) {
         closeMobileMenu();
         if (fontSizeDialog) {
             fontSizeDialog.showModal();
+            document.body.style.overflow = 'hidden';
         }
     });
 }
