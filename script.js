@@ -404,13 +404,13 @@ function updateTranslationDisplay() {
 
 if (closeFontDialog) {
     closeFontDialog.addEventListener('click', () => {
-        const scrollY = document.body.style.top;
+        const scrollY = fontSizeDialog.dataset.scrollY || '0';
         fontSizeDialog.close();
         document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.width = '';
         document.body.style.top = '';
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        window.scrollTo(0, parseInt(scrollY));
     });
 }
 
@@ -432,14 +432,14 @@ if (fontSizeDialog) {
             e.clientX > rect.right ||
             e.clientY < rect.top ||
             e.clientY > rect.bottom
-        ) {
-            const scrollY = document.body.style.top;
+    ) {
+            const scrollY = fontSizeDialog.dataset.scrollY || '0';
             fontSizeDialog.close();
             document.body.style.overflow = '';
             document.body.style.position = '';
             document.body.style.width = '';
             document.body.style.top = '';
-            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            window.scrollTo(0, parseInt(scrollY));
     }
 });
 }
@@ -524,17 +524,26 @@ if (mobileMenuOverlay) {
     mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 }
 
+// Prevent scroll propagation on dialog
+if (fontSizeDialog) {
+    fontSizeDialog.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+    }, { passive: false });
+}
+
 // Settings button
 const settingsBtn = document.getElementById('settingsBtn');
 if (settingsBtn) {
     settingsBtn.addEventListener('click', () => {
         closeMobileMenu();
         if (fontSizeDialog) {
+            const scrollY = window.scrollY;
             fontSizeDialog.showModal();
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
             document.body.style.width = '100%';
-            document.body.style.top = `-${window.scrollY}px`;
+            document.body.style.top = `-${scrollY}px`;
+            fontSizeDialog.dataset.scrollY = scrollY;
         }
     });
 }

@@ -67,6 +67,14 @@ header {
     width: 100%;
 }
 
+/* Ensure sticky header works even when body is fixed */
+body[style*="position: fixed"] header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
 .header-content {
     display: flex;
     justify-content: space-between;
