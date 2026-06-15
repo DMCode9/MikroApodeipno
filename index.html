@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Μικρό Απόδειπνο</title>
     <meta name="theme-color" content="#dc2626">
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
@@ -24,6 +25,9 @@
                     <h1>Μικρό Απόδειπνο</h1>
                 </div>
                 <div class="controls">
+                    <button id="ttsBtn" class="btn btn-icon ripple" aria-label="Ανάγνωση Κειμένου" title="Ανάγνωση (Text-to-Speech)">
+                        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span>
+                    </button>
                     <div class="theme-switch" id="themeSwitch" aria-label="Εναλλαγή θέματος">
                         <div class="theme-switch-track">
                             <div class="theme-switch-thumb">
@@ -56,15 +60,23 @@
                 </div>
 
                 <div class="setting-group">
-                    <h3 class="setting-title">Θέμα Εμφάνισης</h3>
-                    <div class="theme-options">
-                        <button class="theme-option" data-theme="light">
-                            <span class="theme-preview light-preview"></span>
-                            <span class="theme-name">Ανοιχτό</span>
+                    <h3 class="setting-title">Χρωματικό Θέμα</h3>
+                    <div class="theme-options color-theme-options">
+                        <button class="color-theme-option ripple" data-color-theme="default">
+                            <span class="theme-preview default-preview"></span>
+                            <span class="theme-name">Προεπιλογή</span>
                         </button>
-                        <button class="theme-option" data-theme="dark">
-                            <span class="theme-preview dark-preview"></span>
-                            <span class="theme-name">Σκούρο</span>
+                        <button class="color-theme-option ripple" data-color-theme="sepia">
+                            <span class="theme-preview sepia-preview"></span>
+                            <span class="theme-name">Σέπια</span>
+                        </button>
+                        <button class="color-theme-option ripple" data-color-theme="byzantine">
+                            <span class="theme-preview byzantine-preview"></span>
+                            <span class="theme-name">Βυζαντινό</span>
+                        </button>
+                        <button class="color-theme-option ripple" data-color-theme="monastic">
+                            <span class="theme-preview monastic-preview"></span>
+                            <span class="theme-name">Μοναστηριακό</span>
                         </button>
                     </div>
                 </div>
@@ -72,19 +84,19 @@
                 <div class="setting-group">
                     <h3 class="setting-title">Γραμματοσειρά</h3>
                     <div class="font-options">
-                        <button class="font-option" data-font="georgia">
+                        <button class="font-option ripple" data-font="georgia">
                             <span style="font-family: Georgia, serif;">Αα</span>
                             <span class="font-name">Georgia</span>
                         </button>
-                        <button class="font-option" data-font="palatino">
+                        <button class="font-option ripple" data-font="palatino">
                             <span style="font-family: 'Palatino Linotype', Palatino, serif;">Αα</span>
                             <span class="font-name">Palatino</span>
                         </button>
-                        <button class="font-option" data-font="garamond">
+                        <button class="font-option ripple" data-font="garamond">
                             <span style="font-family: Garamond, serif;">Αα</span>
                             <span class="font-name">Garamond</span>
                         </button>
-                        <button class="font-option" data-font="times">
+                        <button class="font-option ripple" data-font="times">
                             <span style="font-family: 'Times New Roman', Times, serif;">Αα</span>
                             <span class="font-name">Times</span>
                         </button>
@@ -125,7 +137,7 @@
                     </div>
                 </div>
 
-                <button id="closeFontDialog" class="btn btn-primary">Κλείσιμο</button>
+                <button id="closeFontDialog" class="btn btn-primary ripple">Κλείσιμο</button>
             </div>
         </dialog>
 
@@ -138,8 +150,14 @@
         <div id="sheetOverlay" class="sheet-overlay"></div>
     </div>
 
+    <!-- Auto Scroll FAB -->
+    <button id="autoScrollBtn" class="auto-scroll-fab ripple" aria-label="Αυτόματη Κύλιση" title="Αυτόματη Κύλιση (Auto-Scroll)">
+        <span class="icon" id="autoScrollIcon" style="display:flex; align-items:center;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <span class="btn-text" id="autoScrollText">Κύλιση</span>
+    </button>
+
     <!-- Scroll to Top FAB -->
-    <button id="scrollToTopBtn" class="scroll-to-top-fab" aria-label="Μετάβαση στην κορυφή">
+    <button id="scrollToTopBtn" class="scroll-to-top-fab ripple" aria-label="Μετάβαση στην κορυφή">
         <span class="icon">↑</span>
     </button>
 
@@ -153,21 +171,8 @@
                 </button>
             </div>
             <div class="theotokos-body">
-                <div class="carousel-container">
-                    <div class="carousel-track" id="carouselTrack">
-                        <!-- Cards will be added by JavaScript -->
-                    </div>
-                </div>
-                <div class="carousel-controls">
-                    <button id="prevCard" class="carousel-btn" aria-label="Προηγούμενο">
-                        <span class="icon">‹</span>
-                    </button>
-                    <div class="carousel-indicators" id="carouselIndicators">
-                        <!-- Indicators will be added by JavaScript -->
-                    </div>
-                    <button id="nextCard" class="carousel-btn" aria-label="Επόμενο">
-                        <span class="icon">›</span>
-                    </button>
+                <div class="theotokos-scroll-area" id="theotokosContent">
+                    <!-- Το περιεχόμενο των Χαιρετισμών θα προστεθεί εδώ από το JavaScript -->
                 </div>
             </div>
         </div>
@@ -195,14 +200,13 @@
                         <a href="#psalm-142" class="bookmark-item-menu">Ψαλμός ΡΜΒ' (142)</a>
                         <a href="#doxology" class="bookmark-item-menu">Mικρά Δοξολογία</a>
                         <a href="#creed" class="bookmark-item-menu">Τὸ Σύμβολον τῆς Πίστεως</a>
-                        <a href="#theotokos-button" class="bookmark-item-menu">Χαιρετισμοί της Υπεραγίας Θεοτόκου</a>
+                        <a href="#theotokos-button" id="bookmarkChairetismoi" class="bookmark-item-menu bookmark-special">
+                            <span class="icon">✨</span> Χαιρετισμοί της Θεοτόκου
+                        </a>
                         <a href="#axion-estin" class="bookmark-item-menu">Ἄξιόν Ἐστιν</a>
-                        <a href="#troparia" class="bookmark-item-menu">Tροπάρια</a>
-                        <a href="#prayer-hours" class="bookmark-item-menu">Εὐχὴ τῶν Ὡρῶν</a>
-                        <a href="#aspile" class="bookmark-item-menu">Ἅσπιλε</a>
-                        <a href="#kai-dos" class="bookmark-item-menu">Καὶ δὸς ἡμῖν</a>
+                        <a href="#aspile" class="bookmark-item-menu">Εὐχὴ εἰς τὴν Ὑπεραγίαν Θεοτόκον</a>
+                        <a href="#kai-dos" class="bookmark-item-menu">Εὐχὴ εἰς τὸν Κύριον ἡμῶν Ἰησοῦν Χριστόν</a>
                         <a href="#guardian-angel" class="bookmark-item-menu">Εὐχὴ εἰς τὸν φύλακα Ἄγγελον</a>
-                        <a href="#hypermacho" class="bookmark-item-menu">Τῇ Ὑπερμάχῳ</a>
                     </div>
                 </div>
             </div>
@@ -210,6 +214,15 @@
     </div>
     <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
 
-    <script src="script.js"></script>
+    <!-- Resume Reading Snackbar -->
+    <div id="resumeSnackbar" class="snackbar">
+        <div class="snackbar-content">Συνέχεια από εκεί που μείνατε;</div>
+        <div class="snackbar-actions">
+            <button id="resumeYesBtn" class="snackbar-btn ripple">Ναι</button>
+            <button id="resumeCloseBtn" class="snackbar-btn snackbar-close ripple" aria-label="Κλείσιμο">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js?v=13"></script>
 </body>
 </html>
