@@ -48,36 +48,22 @@ mikroApodeipno/
 └── README.md               # Αυτό το αρχείο
 ```
 
-## 🚀 Εγκατάσταση & Χρήση
+## 🚀 Εγκατάσταση ως Εφαρμογή (PWA)
 
-### Τοπική Εκτέλεση
+Αυτή η εφαρμογή είναι **Progressive Web App (PWA)**, που σημαίνει ότι μπορείτε να την εγκαταστήσετε μόνιμα στη συσκευή σας για γρήγορη πρόσβαση και λειτουργία εκτός σύνδεσης (offline).
 
-1. **Clone το repository:**
-```bash
-git clone https://github.com/yourusername/mikro-apodeipno.git
-cd mikro-apodeipno
-```
+Επισκεφθείτε τον σύνδεσμο της εφαρμογής: **[https://dmcode9.github.io/MikroApodeipno/](https://dmcode9.github.io/MikroApodeipno/)**
 
-2. **Εκκίνηση local server:**
-```bash
-# Python 3
-python3 -m http.server 8001
+### 📱 Σε Κινητό (Android / iOS)
 
-# ή Python 2
-python -m SimpleHTTPServer 8001
+*   **Android (Chrome / Edge):** Ανοίξτε το μενού του browser (τρεις τελείες) και επιλέξτε "Εγκατάσταση εφαρμογής" (Install app) ή "Προσθήκη στην αρχική οθόνη" (Add to Home screen).
+*   **iOS (Safari):** Πατήστε το κουμπί κοινοποίησης (Share - το τετράγωνο με το βελάκι προς τα πάνω) στο κάτω μέρος της οθόνης και επιλέξτε "Προσθήκη στην οθόνη αφετηρίας" (Add to Home Screen).
 
-# ή με Node.js
-npx http-server -p 8001
-```
+### 💻 Σε Υπολογιστή (Desktop)
 
-3. **Άνοιξε στον browser:**
-```
-http://localhost:8001
-```
-
-### GitHub Pages
-
-Η εφαρμογή θα είναι διαθέσιμη στο: `https://dmcode9.github.io/MikroApodeipno/`
+1. Ανοίξτε τον παραπάνω σύνδεσμο (Chrome, Edge ή Brave).
+2. Πατήστε το εικονίδιο **εγκατάστασης** (οθόνη με ένα βελάκι προς τα κάτω) που εμφανίζεται στη γραμμή διευθύνσεων, δίπλα στο εικονίδιο των σελιδοδεικτών.
+3. Επιλέξτε "Εγκατάσταση" (Install). Η εφαρμογή θα προστεθεί στις εφαρμογές του υπολογιστή σας.
 
 ## 📄 License
 
