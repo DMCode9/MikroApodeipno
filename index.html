@@ -25,9 +25,7 @@
                     <h1>Μικρό Απόδειπνο</h1>
                 </div>
                 <div class="controls">
-                    <button id="ttsBtn" class="btn btn-icon ripple" aria-label="Ανάγνωση Κειμένου" title="Ανάγνωση (Text-to-Speech)">
-                        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span>
-                    </button>
+
                     <div class="theme-switch" id="themeSwitch" aria-label="Εναλλαγή θέματος">
                         <div class="theme-switch-track">
                             <div class="theme-switch-thumb">
@@ -47,7 +45,12 @@
         <!-- Dialog για ρυθμίσεις -->
         <dialog id="fontSizeDialog" class="dialog">
             <div class="dialog-content">
-                <h2>Ρυθμίσεις</h2>
+                <div class="dialog-header">
+                    <h2>Ρυθμίσεις</h2>
+                    <button id="closeFontDialog" class="dialog-close-btn ripple" aria-label="Κλείσιμο">
+                        <span class="icon">✕</span>
+                    </button>
+                </div>
                 
                 <div class="setting-group">
                     <h3 class="setting-title">Μέγεθος Γραμματοσειράς</h3>
@@ -137,7 +140,6 @@
                     </div>
                 </div>
 
-                <button id="closeFontDialog" class="btn btn-primary ripple">Κλείσιμο</button>
             </div>
         </dialog>
 
@@ -218,6 +220,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=13"></script>
+    <script src="script.js?v=14"></script>
 </body>
 </html>
