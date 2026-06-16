@@ -999,75 +999,7 @@ document.addEventListener('click', function (e) {
     }, 600);
 });
 
-// --- Auto Scroll Logic ---
-const autoScrollBtn = document.getElementById('autoScrollBtn');
-const autoScrollText = document.getElementById('autoScrollText');
-const autoScrollIcon = document.getElementById('autoScrollIcon');
-const playIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><polyline points="6 9 12 15 18 9"/></svg>`;
-const pauseIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
 
-let autoScrollActive = false;
-let autoScrollFrameId = null;
-
-function stepAutoScroll() {
-    if (!autoScrollActive) return;
-    
-    // Scroll down by 1 pixel
-    window.scrollBy(0, 1);
-    
-    // Check if hit bottom
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
-        stopAutoScroll();
-        return;
-    }
-    
-    setTimeout(() => {
-        if (autoScrollActive) {
-            autoScrollFrameId = requestAnimationFrame(stepAutoScroll);
-        }
-    }, 30); // ~30 pixels per second
-}
-
-function startAutoScroll() {
-    autoScrollActive = true;
-    if (autoScrollBtn) {
-        autoScrollBtn.classList.add('auto-scroll-active');
-        if (autoScrollText) autoScrollText.textContent = 'Παύση';
-        if (autoScrollIcon) autoScrollIcon.innerHTML = pauseIconSvg;
-    }
-    autoScrollFrameId = requestAnimationFrame(stepAutoScroll);
-}
-
-function stopAutoScroll() {
-    autoScrollActive = false;
-    if (autoScrollBtn) {
-        autoScrollBtn.classList.remove('auto-scroll-active');
-        if (autoScrollText) autoScrollText.textContent = 'Κύλιση';
-        if (autoScrollIcon) autoScrollIcon.innerHTML = playIconSvg;
-    }
-    if (autoScrollFrameId) {
-        cancelAnimationFrame(autoScrollFrameId);
-        autoScrollFrameId = null;
-    }
-}
-
-if (autoScrollBtn) {
-    autoScrollBtn.addEventListener('click', () => {
-        if (autoScrollActive) {
-            stopAutoScroll();
-        } else {
-            startAutoScroll();
-        }
-    });
-}
-
-// Stop auto-scroll if user manually scrolls
-window.addEventListener('wheel', () => {
-    if (autoScrollActive) stopAutoScroll();
-});
-window.addEventListener('touchstart', () => {
-    if (autoScrollActive) stopAutoScroll();
-});
 
 // --- Resume Reading Logic ---
 let scrollTimeout;
