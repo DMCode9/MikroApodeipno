@@ -13,15 +13,15 @@
 }
 
 :root[data-theme="dark"], [data-color-theme="default"][data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #e5e5e5;
-    --header-bg: #1e1e1e;
-    --border-color: #2c2c2c;
-    --paragraph-hover: #1e1e1e;
-    --dialog-bg: #1e1e1e;
+    --bg-color: #1e1b18;
+    --text-color: #e5e0d8;
+    --header-bg: #2a2622;
+    --border-color: #3d3832;
+    --paragraph-hover: #2a2622;
+    --dialog-bg: #2a2622;
     --shadow: rgba(0, 0, 0, 0.5);
-    --btn-bg: #2c2c2c;
-    --btn-hover: #3d3d3d;
+    --btn-bg: #3d3832;
+    --btn-hover: #4d4842;
     --primary-color: #dc2626;
 }
 
@@ -150,26 +150,6 @@ body[style*="position: fixed"] header {
     top: 0;
     left: 0;
     right: 0;
-}
-
-body.fixed-header-disabled header {
-    position: relative;
-    z-index: 10;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-body.fixed-header-disabled #menuToggle {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px var(--shadow), 0 2px 6px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border-color);
-}
-
-body.fixed-header-disabled .header-left h1 {
-    margin-left: 60px;
 }
 
 .header-content {
@@ -868,8 +848,6 @@ main {
     box-shadow: 0 8px 32px var(--shadow);
     max-width: 400px;
     width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
     position: fixed;
     top: 50%;
     left: 50%;
