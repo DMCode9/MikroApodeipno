@@ -1576,7 +1576,7 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
 /* Update Notification Toast */
 .update-toast {
     position: fixed;
-    bottom: 30px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--primary-color);
@@ -1589,7 +1589,7 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
     gap: 16px;
     z-index: 10000;
     font-family: var(--font-family);
-    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: max-content;
     max-width: 90vw;
 }
@@ -1628,9 +1628,9 @@ body[data-translation-mode="sidebyside"] .paragraph .translation-text {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-@keyframes slideUp {
+@keyframes slideDown {
     from {
-        transform: translate(-50%, 100%);
+        transform: translate(-50%, -100%);
         opacity: 0;
     }
     to {
