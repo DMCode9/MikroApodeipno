@@ -875,6 +875,8 @@ if ('serviceWorker' in navigator) {
                     location.hostname.startsWith('10.') || 
                     location.hostname.endsWith('.local');
                     
+    let refreshing = false;
+
     if (isLocal) {
         navigator.serviceWorker.getRegistrations().then(registrations => {
             for (let registration of registrations) {
@@ -887,11 +889,56 @@ if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then(registration => {
                 console.log('SW registered');
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        // Has network content finished downloading?
+                        if (newWorker.state === 'installed') {
+                            if (navigator.serviceWorker.controller) {
+                                // New content is available; please refresh.
+                                showUpdateNotification(newWorker);
+                            }
+                        }
+                    });
+                });
             }).catch(error => {
                 console.log('SW registration failed:', error);
             });
         });
+
+        // Listen for the controlling service worker changing
+        // and reload the page
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                window.location.reload();
+                refreshing = true;
+            }
+        });
     }
+}
+
+function showUpdateNotification(newWorker) {
+    // Δημιουργία του UI για την ειδοποίηση (toast)
+    const toast = document.createElement('div');
+    toast.className = 'update-toast';
+    toast.innerHTML = `
+        <span>Υπάρχει νέα έκδοση της εφαρμογής!</span>
+        <button id="update-btn">Ανανέωση</button>
+        <button id="dismiss-btn">Κλείσιμο</button>
+    `;
+    document.body.appendChild(toast);
+
+    document.getElementById('update-btn').addEventListener('click', () => {
+        // Στέλνουμε μήνυμα στο νέο Service Worker να αναλάβει (skip waiting)
+        newWorker.postMessage('SKIP_WAITING');
+        toast.remove();
+    });
+
+    document.getElementById('dismiss-btn').addEventListener('click', () => {
+        toast.remove();
+    });
 }
 
 // --- Ripple Effect Logic ---
