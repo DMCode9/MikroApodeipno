@@ -1,0 +1,17 @@
+{
+  "name": "Μικρό Απόδειπνο",
+  "short_name": "Απόδειπνο",
+  "description": "Η ακολουθία του Μικρού Αποδείπνου και οι Χαιρετισμοί της Θεοτόκου",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fdfbf7",
+  "theme_color": "#b91c1c",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
