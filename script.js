@@ -869,13 +869,28 @@ document.addEventListener('click', (e) => {
 
 // --- Service Worker Registration ---
 if ('serviceWorker' in navigator) {
+    const isLocal = location.hostname === 'localhost' || 
+                    location.hostname === '127.0.0.1' || 
+                    location.hostname.startsWith('192.168.') || 
+                    location.hostname.startsWith('10.') || 
+                    location.hostname.endsWith('.local');
+                    
     let refreshing = false;
 
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(registration => {
-            console.log('SW registered');
-            
-            // Check for updates
+    if (isLocal) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            for (let registration of registrations) {
+                registration.unregister().then(success => {
+                    if (success) console.log('Local SW unregistered to prevent caching');
+                });
+            }
+        });
+    } else {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').then(registration => {
+                console.log('SW registered');
+                
+                // Check for updates
                 registration.addEventListener('updatefound', () => {
                     const newWorker = registration.installing;
                     newWorker.addEventListener('statechange', () => {
@@ -901,6 +916,7 @@ if ('serviceWorker' in navigator) {
                 refreshing = true;
             }
         });
+    }
 }
 
 function showUpdateNotification(newWorker) {

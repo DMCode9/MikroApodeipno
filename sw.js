@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mikro-apodeipno-v9';
+const CACHE_NAME = 'mikro-apodeipno-v8';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
