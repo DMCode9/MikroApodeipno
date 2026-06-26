@@ -3,6 +3,8 @@ if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
+let isContentLoaded = false;
+
 // Μεταφράσεις παραγράφων
 const translations = {
     1: "Στο όνομα του Πατέρα και του Υιού και του Αγίου Πνεύματος. Αμήν. Δόξα σε Σένα τον Θεό μας, Δόξα σε Σένα. Βασιλιὰ οὐράνιε, Παράκλητε, Πνεῦμα Ἅγιο, ποὺ ἀπὸ Σένα πηγάζει ἡ ἀλήθεια· ποὺ βρίσκεσαι παντοῦ καὶ μὲ τὴν παρουσία Σου γεμίζεις τὰ πάντα· Ἐσὺ ποὺ εἶσαι ὁ θησαυρὸς καὶ ἡ πηγὴ κάθε ἀγαθοῦ καὶ δωρίζεις τὴ ζωή, ἔλα καὶ κατοίκησε μέσα μας, καὶ καθάρισέ μας ἀπὸ τὰ στίγματα τῆς ἁμαρτίας καὶ σῶσε τὶς ψυχές μας.",
@@ -422,6 +424,8 @@ function updateTranslationDisplay() {
     
     const content = document.getElementById('content');
     if (content) {
+        isContentLoaded = false;
+        
         // Καταγραφή του τρέχοντος ύψους για την αποφυγή layout shift
         const currentHeight = content.offsetHeight;
         content.style.minHeight = `${currentHeight}px`;
@@ -434,6 +438,7 @@ function updateTranslationDisplay() {
             // Μικρή καθυστέρηση για να προλάβει το rendering
             setTimeout(() => {
                 content.style.minHeight = '';
+                isContentLoaded = true;
             }, 100);
         });
     }
@@ -961,6 +966,7 @@ document.addEventListener('click', function (e) {
 // --- Resume Reading Logic ---
 let scrollTimeout;
 window.addEventListener('scroll', () => {
+    if (!isContentLoaded) return;
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
         if (window.scrollY > 0) {
@@ -969,8 +975,7 @@ window.addEventListener('scroll', () => {
     }, 500);
 });
 
-window.addEventListener('load', () => {
-
+function initResumeReading() {
     const savedScroll = localStorage.getItem('lastScrollPosition');
     if (savedScroll && parseInt(savedScroll) > 300) {
         const snackbar = document.getElementById('resumeSnackbar');
@@ -980,7 +985,7 @@ window.addEventListener('load', () => {
         if (snackbar && yesBtn && closeBtn) {
             setTimeout(() => {
                 snackbar.classList.add('show');
-            }, 1500);
+            }, 1000);
             
             yesBtn.addEventListener('click', () => {
                 window.scrollTo({
@@ -1000,7 +1005,10 @@ window.addEventListener('load', () => {
             }, 10000);
         }
     }
-});
+}
 
 // Φόρτωση περιεχομένου
-loadContent();
+loadContent().then(() => {
+    isContentLoaded = true;
+    initResumeReading();
+});
