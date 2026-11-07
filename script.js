@@ -745,7 +745,7 @@ let chairetismoiTranslations = [];
 // Load Chairetismoi from markdown
 async function loadChairetismoi() {
     try {
-        const response = await fetch('chairetismoi.md?v=4');
+        const response = await fetch('chairetismoi.md?v=5');
         if (!response.ok) {
             throw new Error('Failed to load chairetismoi.md');
         }
@@ -963,52 +963,7 @@ document.addEventListener('click', function (e) {
 
 
 
-// --- Resume Reading Logic ---
-let scrollTimeout;
-window.addEventListener('scroll', () => {
-    if (!isContentLoaded) return;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        if (window.scrollY > 0) {
-            localStorage.setItem('lastScrollPosition', window.scrollY);
-        }
-    }, 500);
-});
-
-function initResumeReading() {
-    const savedScroll = localStorage.getItem('lastScrollPosition');
-    if (savedScroll && parseInt(savedScroll) > 300) {
-        const snackbar = document.getElementById('resumeSnackbar');
-        const yesBtn = document.getElementById('resumeYesBtn');
-        const closeBtn = document.getElementById('resumeCloseBtn');
-        
-        if (snackbar && yesBtn && closeBtn) {
-            setTimeout(() => {
-                snackbar.classList.add('show');
-            }, 1000);
-            
-            yesBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: parseInt(savedScroll),
-                    behavior: 'smooth'
-                });
-                snackbar.classList.remove('show');
-            });
-            
-            closeBtn.addEventListener('click', () => {
-                snackbar.classList.remove('show');
-                localStorage.removeItem('lastScrollPosition');
-            });
-            
-            setTimeout(() => {
-                snackbar.classList.remove('show');
-            }, 10000);
-        }
-    }
-}
-
 // Φόρτωση περιεχομένου
 loadContent().then(() => {
     isContentLoaded = true;
-    initResumeReading();
 });
